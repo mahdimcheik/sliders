@@ -8,19 +8,36 @@ myPics.addEventListener("mousedown", (e) => {
   let offsets = myPics.getBoundingClientRect();
   let left = offsets.left;
   x = e.clientX - left;
+  console.log(left);
   isDrawing = true;
 });
 
 window.addEventListener("mousemove", (e) => {
   e.preventDefault();
+
   if (isDrawing) {
-    myPics.style.left = e.clientX - x + "px";
+    let offsets = myPics.getBoundingClientRect();
+    let left = offsets.left;
+    if (left + e.clientX > 0) myPics.style.left = e.clientX - x + "px";
   }
 });
 
 window.addEventListener("mouseup", (e) => {
   if (isDrawing) {
     isDrawing = false;
+    let offsets = myPics.getBoundingClientRect();
+    let left = offsets.left;
+    if (left >= 300) {
+      console.log("bigger than 300");
+      let f = () => 
+      {
+        setTimeout(() => 
+        {
+          myPics.style.left = 0 + "px";
+        }, 2000);
+      }
+      f();
+    }
   }
 });
 
